@@ -24,14 +24,6 @@ class OnBoardingViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
     
-    init() {
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     private func setupPageProgressView() {
         self.view.addSubview(headerView)
         headerView.translatesAutoresizingMaskIntoConstraints = false
@@ -71,36 +63,26 @@ class OnBoardingViewController: UIViewController {
         super.viewDidLoad()
         setupViewComponents()
         updateProgressIndicator()
+    }    
+    
+    // Required init methods
+    init() {
+        super.init(nibName: nil, bundle: nil)
     }
     
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }
 
 extension OnBoardingViewController: OnBoardingPageViewControllerDelegate {
     func pageViewControllerDidFinishTransitioningToIndex(_ index: Int) {
-        #warning("let the progress bar know about this transition and update accordingly")
+        // let the progress bar know about this transition and update accordingly
         updateProgressIndicator(index)
     }
     
     @objc fileprivate func updateProgressIndicator(_ pageIndex: Int = 0) {
         let progress = CGFloat(((pageIndex + 1) * 100) / pagerViewController.viewControllersList.count)
         headerView.progress = progress
-    }
-}
-
-
-
-
-extension UIView {
-    // Autolayout - Anchors
-    func fillSuperview() {
-        translatesAutoresizingMaskIntoConstraints = false
-        if let superview = superview {
-            NSLayoutConstraint.activate([
-                leadingAnchor.constraint(equalTo: superview.leadingAnchor),
-                trailingAnchor.constraint(equalTo: superview.trailingAnchor),
-                topAnchor.constraint(equalTo: superview.topAnchor),
-                bottomAnchor.constraint(equalTo: superview.bottomAnchor)
-                ])
-        }
     }
 }

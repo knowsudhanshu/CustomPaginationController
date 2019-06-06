@@ -29,18 +29,17 @@ class OnBoardingPageViewController: UIPageViewController {
         self.setViewControllers([viewControllersList[0]], direction: .forward, animated: true)
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         dataSource = self
         delegate = self
     }
-
+    
+    // Required init methods
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }
 
 
@@ -76,7 +75,6 @@ extension OnBoardingPageViewController: UIPageViewControllerDelegate {
         if completed == true {
             guard let currentViewController = pageViewController.viewControllers?.first else { return }
             let currentIndex: Int = viewControllersList.firstIndex(of: currentViewController) ?? 0
-            print("currentIndex: \(currentIndex)")
             onBoardingPageViewControllerDelegate?.pageViewControllerDidFinishTransitioningToIndex(currentIndex)
         }
     }

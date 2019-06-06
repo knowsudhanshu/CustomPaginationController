@@ -29,12 +29,8 @@ class PageControlView: UIView {
     var progress: CGFloat = 1 {
         // 0...1
         didSet {
-            #warning("update progressView accordingly")
-            
-            perform(#selector(updateProgressIndicator), with: nil, afterDelay: 0)
-
             print("progress: \(progress)")
-            
+            perform(#selector(updateProgressIndicator), with: nil, afterDelay: 0)
         }
     }
     
@@ -77,6 +73,7 @@ class PageControlView: UIView {
         self.progressContainerView.backgroundColor = style.progressContainerColor        
     }
     
+    // Required init methods
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
