@@ -10,7 +10,8 @@ import UIKit
 
 
 protocol OnBoardingPageViewControllerDelegate: NSObjectProtocol {
-    func pageViewControllerDidFinishTransitioningToIndex(_ index: Int)
+    func pageViewController(_ pageController: OnBoardingPageViewController, scrollTo index: Int)
+    func pageViewController(_ pageController: OnBoardingPageViewController, didScrollIndex index: Int)
 }
 
 class OnBoardingPageViewController: UIPageViewController {
@@ -72,10 +73,47 @@ extension OnBoardingPageViewController: UIPageViewControllerDataSource {
 
 extension OnBoardingPageViewController: UIPageViewControllerDelegate {
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-        if completed == true {
+        if completed {
             guard let currentViewController = pageViewController.viewControllers?.first else { return }
+            
             let currentIndex: Int = viewControllersList.firstIndex(of: currentViewController) ?? 0
-            onBoardingPageViewControllerDelegate?.pageViewControllerDidFinishTransitioningToIndex(currentIndex)
+
+            updateIndex(currentIndex)
         }
+    }
+}
+
+extension OnBoardingPageViewController {
+    
+    func goToNextPage(){
+        
+        guard let currentViewController = self.viewControllers?.first else { return }
+        
+        guard let nextViewController = dataSource?.pageViewController( self, viewControllerAfter: currentViewController ) else { return }
+        
+        setViewControllers([nextViewController], direction: .forward, animated: true, completion: nil)
+
+        
+        let currentIndex: Int = viewControllersList.firstIndex(of: currentViewController) ?? 0
+        
+        updateIndex(currentIndex + 1)
+    }
+    
+    func goToPreviousPage(){
+        
+        guard let currentViewController = self.viewControllers?.first else { return }
+        
+        guard let previousViewController = dataSource?.pageViewController( self, viewControllerBefore: currentViewController ) else { return }
+        
+        setViewControllers([previousViewController], direction: .reverse, animated: true, completion: nil)
+
+        let currentIndex: Int = viewControllersList.firstIndex(of: currentViewController) ?? 0
+        
+        updateIndex(currentIndex - 1)
+    }
+    
+    private func updateIndex(_ index: Int) {
+        guard (index >= 0 && index < viewControllersList.count) else { return }
+        onBoardingPageViewControllerDelegate?.pageViewController(self, didScrollIndex: index)
     }
 }

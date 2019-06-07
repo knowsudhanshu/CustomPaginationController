@@ -20,13 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let window = UIWindow(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
         
-        let sb = UIStoryboard(name: "Main", bundle: nil)
-        
-        window.rootViewController = OnBoardingViewController(viewControllers: [
-            sb.instantiateViewController(withIdentifier: "VC1"),
-            sb.instantiateViewController(withIdentifier: "VC2"),
-            sb.instantiateViewController(withIdentifier: "VC3")
-            ])
+        let rootViewController = OnBoardingViewController()
+        window.rootViewController = rootViewController
         window.makeKeyAndVisible()
         self.window = window
         

@@ -10,9 +10,11 @@ import UIKit
 
 struct PageControlStyle {
     let backgroundColor: UIColor = .white
-    let progressColor: UIColor = .red
-    let progressContainerColor: UIColor = .gray
+    let progressColor: UIColor = UIColor(red: 223/255, green: 83/255, blue: 42/255, alpha: 1.0)
+    let progressContainerColor: UIColor = UIColor(red: 224/255, green: 207/255, blue: 191/255, alpha: 1.0)
 }
+
+let PROGRESS_BAR_HEIGHT: CGFloat = 2.0
 
 class PageControlView: UIView {
     private let progressView: UIView = {
@@ -62,7 +64,7 @@ class PageControlView: UIView {
         addSubview(progressContainerView)
         progressContainerView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            progressContainerView.heightAnchor.constraint(equalToConstant: 10),
+            progressContainerView.heightAnchor.constraint(equalToConstant: PROGRESS_BAR_HEIGHT),
             progressContainerView.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             progressContainerView.trailingAnchor.constraint(equalTo: self.trailingAnchor),
             progressContainerView.bottomAnchor.constraint(equalTo: self.bottomAnchor)

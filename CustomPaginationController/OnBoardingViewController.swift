@@ -8,20 +8,51 @@
 
 import UIKit
 
+protocol PaginationChildProtocol where Self: UIViewController  {
+    var containerViewController: OnBoardingViewController {get set}
+    init(containerViewController: OnBoardingViewController)
+}
+
 class OnBoardingViewController: UIViewController {
     
     var headerView: PageControlView!
-    var pagerViewController: OnBoardingPageViewController!
+    var pagerViewController: OnBoardingPageViewController? = nil
+    var navigationView: UIStackView = {
+        let view = UIView()
         
-    init(viewControllers: [UIViewController]) {
-        // setup pagecontrolview
-        headerView = PageControlView(style: PageControlStyle())
+        let prevButton = UIButton(type: .custom)
+        prevButton.frame = CGRect(x: 0, y: 0, width: 80, height: 40)
+        prevButton.setTitle("Prev", for: .normal)
+        prevButton.addTarget(self, action: #selector(prevAction), for: .touchUpInside)
         
-        // setup pagecontroller
-        pagerViewController = OnBoardingPageViewController(viewControllers: viewControllers)
-        pagerViewController.view.backgroundColor = .yellow
+        let nextButton = UIButton(type: .custom)
+        nextButton.frame = CGRect(x: 0, y: 0, width: 80, height: 40)
+        nextButton.setTitle("Next", for: .normal)
+        nextButton.addTarget(self, action: #selector(nextAction), for: .touchUpInside)
         
-        super.init(nibName: nil, bundle: nil)
+        let stackView = UIStackView(arrangedSubviews: [prevButton, nextButton])
+        stackView.distribution = UIStackView.Distribution.fillEqually
+        stackView.axis = .horizontal
+        return stackView
+    }()
+    
+    @objc private func prevAction() {
+        self.goBack()
+    }
+    
+    @objc private func nextAction() {
+        self.goNext()
+    }
+    
+    var viewControllers: [UIViewController]? = nil {
+        didSet {
+            headerView = PageControlView(style: PageControlStyle())
+
+            // setup pagecontroller
+            guard let vcs = viewControllers else { return }
+            pagerViewController = OnBoardingPageViewController(viewControllers: vcs)
+            pagerViewController?.view.backgroundColor = .white
+        }
     }
     
     private func setupPageProgressView() {
@@ -29,15 +60,28 @@ class OnBoardingViewController: UIViewController {
         headerView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-        headerView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
-        headerView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
-        headerView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
-        headerView.heightAnchor.constraint(equalToConstant: 40)
+        headerView.topAnchor.constraint(equalTo: self.view.topAnchor),
+        headerView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+        headerView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+        headerView.heightAnchor.constraint(equalToConstant: UIApplication.shared.statusBarFrame.height)
         ])
         
     }
     
+    private func setupNavView() {
+        self.view.addSubview(navigationView)
+        navigationView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            navigationView.topAnchor.constraint(equalTo: headerView.bottomAnchor),
+            navigationView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            navigationView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            navigationView.heightAnchor.constraint(equalToConstant: 40)
+            ])
+    }
+    
     private func setupPagerViewController() {
+        guard let pagerViewController = pagerViewController else { return }
+        
         pagerViewController.onBoardingPageViewControllerDelegate = self
 
         self.addChild(pagerViewController)
@@ -57,13 +101,29 @@ class OnBoardingViewController: UIViewController {
         setupPageProgressView()
         setupPagerViewController()
         
+        setupNavView()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.viewControllers =
+            [Page1ViewController(containerViewController: self),
+             Page2ViewController(containerViewController: self),
+             Page3ViewController(containerViewController: self)]
+
         setupViewComponents()
         updateProgressIndicator()
-    }    
+    }
+    
+    // public func
+    func goNext() {
+        pagerViewController?.goToNextPage()
+    }
+    
+    func goBack() {
+        pagerViewController?.goToPreviousPage()
+    }
     
     // Required init methods
     init() {
@@ -76,13 +136,19 @@ class OnBoardingViewController: UIViewController {
 }
 
 extension OnBoardingViewController: OnBoardingPageViewControllerDelegate {
-    func pageViewControllerDidFinishTransitioningToIndex(_ index: Int) {
+    
+    func pageViewController(_ pageController: OnBoardingPageViewController, scrollTo index: Int) {
+        updateProgressIndicator(index)
+    }
+    
+    func pageViewController(_ pageController: OnBoardingPageViewController, didScrollIndex index: Int) {
         // let the progress bar know about this transition and update accordingly
+        print("index: \(index)")
         updateProgressIndicator(index)
     }
     
     @objc fileprivate func updateProgressIndicator(_ pageIndex: Int = 0) {
-        let progress = CGFloat(((pageIndex + 1) * 100) / pagerViewController.viewControllersList.count)
+        let progress = CGFloat(((pageIndex + 1) * 100) / pagerViewController!.viewControllersList.count)
         headerView.progress = progress
     }
 }
