@@ -21,21 +21,35 @@ class Page3ViewController: UIViewController, PaginationChildProtocol {
         fatalError("init(coder:) has not been implemented")
     }
 
+    let footerButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.setTitle("Done", for: .normal)
+        button.layer.cornerRadius = 8
+        button.clipsToBounds = true
+        button.backgroundColor = .black
+        
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.widthAnchor.constraint(equalToConstant: 150).isActive = true
+        button.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        return button
+    }()
+    
+    fileprivate func setupFooterButton() {
+        view.addSubview(footerButton)
+        
+        footerButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        footerButton.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: -40).isActive = true
+        
+        footerButton.addTarget(self, action: #selector(doneAction), for: .touchUpInside)
+    }
+    
+    @objc private func doneAction() {
+        containerViewController.goNext()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .red
-        // Do any additional setup after loading the view.
+        setupFooterButton()
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
