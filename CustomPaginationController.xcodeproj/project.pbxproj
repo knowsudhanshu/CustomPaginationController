@@ -11,8 +11,8 @@
 		AD0F3D2122A8EF8100035400 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AD0F3D1F22A8EF8100035400 /* Main.storyboard */; };
 		AD0F3D2322A8EF8300035400 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AD0F3D2222A8EF8300035400 /* Assets.xcassets */; };
 		AD0F3D2622A8EF8300035400 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AD0F3D2422A8EF8300035400 /* LaunchScreen.storyboard */; };
-		AD0F3D2E22A8F12E00035400 /* OnBoardingPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0F3D2D22A8F12E00035400 /* OnBoardingPageViewController.swift */; };
-		AD0F3D3022A8FB4D00035400 /* OnBoardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0F3D2F22A8FB4D00035400 /* OnBoardingViewController.swift */; };
+		AD0F3D2E22A8F12E00035400 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0F3D2D22A8F12E00035400 /* PageViewController.swift */; };
+		AD0F3D3022A8FB4D00035400 /* PageContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0F3D2F22A8FB4D00035400 /* PageContainerViewController.swift */; };
 		AD0F3D3222A90E6800035400 /* PageControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD0F3D3122A90E6800035400 /* PageControlView.swift */; };
 		AD7C056B22AA4B2E00F311DC /* Page3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7C056A22AA4B2E00F311DC /* Page3ViewController.swift */; };
 		AD7C056D22AA4B3300F311DC /* Page1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7C056C22AA4B3300F311DC /* Page1ViewController.swift */; };
@@ -26,8 +26,8 @@
 		AD0F3D2222A8EF8300035400 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AD0F3D2522A8EF8300035400 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AD0F3D2722A8EF8300035400 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AD0F3D2D22A8F12E00035400 /* OnBoardingPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingPageViewController.swift; sourceTree = "<group>"; };
-		AD0F3D2F22A8FB4D00035400 /* OnBoardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardingViewController.swift; sourceTree = "<group>"; };
+		AD0F3D2D22A8F12E00035400 /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
+		AD0F3D2F22A8FB4D00035400 /* PageContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageContainerViewController.swift; sourceTree = "<group>"; };
 		AD0F3D3122A90E6800035400 /* PageControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageControlView.swift; sourceTree = "<group>"; };
 		AD7C056A22AA4B2E00F311DC /* Page3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Page3ViewController.swift; sourceTree = "<group>"; };
 		AD7C056C22AA4B3300F311DC /* Page1ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Page1ViewController.swift; sourceTree = "<group>"; };
@@ -65,9 +65,9 @@
 			isa = PBXGroup;
 			children = (
 				AD0F3D1B22A8EF8100035400 /* AppDelegate.swift */,
-				AD0F3D2F22A8FB4D00035400 /* OnBoardingViewController.swift */,
+				AD0F3D2F22A8FB4D00035400 /* PageContainerViewController.swift */,
 				AD0F3D3122A90E6800035400 /* PageControlView.swift */,
-				AD0F3D2D22A8F12E00035400 /* OnBoardingPageViewController.swift */,
+				AD0F3D2D22A8F12E00035400 /* PageViewController.swift */,
 				AD0F3D1F22A8EF8100035400 /* Main.storyboard */,
 				AD0F3D2222A8EF8300035400 /* Assets.xcassets */,
 				AD0F3D2422A8EF8300035400 /* LaunchScreen.storyboard */,
@@ -150,10 +150,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AD0F3D3022A8FB4D00035400 /* OnBoardingViewController.swift in Sources */,
+				AD0F3D3022A8FB4D00035400 /* PageContainerViewController.swift in Sources */,
 				AD7C056B22AA4B2E00F311DC /* Page3ViewController.swift in Sources */,
 				AD0F3D3222A90E6800035400 /* PageControlView.swift in Sources */,
-				AD0F3D2E22A8F12E00035400 /* OnBoardingPageViewController.swift in Sources */,
+				AD0F3D2E22A8F12E00035400 /* PageViewController.swift in Sources */,
 				AD7C056F22AA4B3400F311DC /* Page2ViewController.swift in Sources */,
 				AD0F3D1C22A8EF8100035400 /* AppDelegate.swift in Sources */,
 				AD7C056D22AA4B3300F311DC /* Page1ViewController.swift in Sources */,

@@ -1,5 +1,5 @@
 //
-//  OnBoardingViewController.swift
+//  PageContainerViewController.swift
 //  CustomPaginationController
 //
 //  Created by Sudhanshu Sudhanshu on 06/06/19.
@@ -9,14 +9,14 @@
 import UIKit
 
 protocol PaginationChildProtocol where Self: UIViewController  {
-    var containerViewController: OnBoardingViewController {get set}
-    init(containerViewController: OnBoardingViewController)
+    var containerViewController: PageContainerViewController {get set}
+    init(containerViewController: PageContainerViewController)
 }
 
-class OnBoardingViewController: UIViewController {
+class PageContainerViewController: UIViewController {
     
     var headerView: PageControlView!
-    var pagerViewController: OnBoardingPageViewController? = nil
+    var pagerViewController: PageViewController? = nil
     var navigationView: UIStackView = {
         let view = UIView()
         
@@ -50,7 +50,7 @@ class OnBoardingViewController: UIViewController {
 
             // setup pagecontroller
             guard let vcs = viewControllers else { return }
-            pagerViewController = OnBoardingPageViewController(viewControllers: vcs)
+            pagerViewController = PageViewController(viewControllers: vcs)
             pagerViewController?.view.backgroundColor = .white
         }
     }
@@ -82,7 +82,7 @@ class OnBoardingViewController: UIViewController {
     private func setupPagerViewController() {
         guard let pagerViewController = pagerViewController else { return }
         
-        pagerViewController.onBoardingPageViewControllerDelegate = self
+        pagerViewController.pageViewControllerDelegate = self
 
         self.addChild(pagerViewController)
         
@@ -135,13 +135,13 @@ class OnBoardingViewController: UIViewController {
     }
 }
 
-extension OnBoardingViewController: OnBoardingPageViewControllerDelegate {
+extension PageContainerViewController: PageViewControllerDelegate {
     
-    func pageViewController(_ pageController: OnBoardingPageViewController, scrollTo index: Int) {
+    func pageViewController(_ pageController: PageViewController, scrollTo index: Int) {
         updateProgressIndicator(index)
     }
     
-    func pageViewController(_ pageController: OnBoardingPageViewController, didScrollIndex index: Int) {
+    func pageViewController(_ pageController: PageViewController, didScrollIndex index: Int) {
         // let the progress bar know about this transition and update accordingly
         print("index: \(index)")
         updateProgressIndicator(index)

@@ -1,5 +1,5 @@
 //
-//  OnBoardingPageViewController.swift
+//  PageViewController.swift
 //  CustomPaginationController
 //
 //  Created by Sudhanshu Sudhanshu on 06/06/19.
@@ -9,14 +9,14 @@
 import UIKit
 
 
-protocol OnBoardingPageViewControllerDelegate: NSObjectProtocol {
-    func pageViewController(_ pageController: OnBoardingPageViewController, scrollTo index: Int)
-    func pageViewController(_ pageController: OnBoardingPageViewController, didScrollIndex index: Int)
+protocol PageViewControllerDelegate: NSObjectProtocol {
+    func pageViewController(_ pageController: PageViewController, scrollTo index: Int)
+    func pageViewController(_ pageController: PageViewController, didScrollIndex index: Int)
 }
 
-class OnBoardingPageViewController: UIPageViewController {
+class PageViewController: UIPageViewController {
     var viewControllersList: [UIViewController] = []
-    weak var onBoardingPageViewControllerDelegate: OnBoardingPageViewControllerDelegate?
+    weak var pageViewControllerDelegate: PageViewControllerDelegate?
 
     override init(transitionStyle style: UIPageViewController.TransitionStyle, navigationOrientation: UIPageViewController.NavigationOrientation, options: [UIPageViewController.OptionsKey : Any]? = nil) {
         super.init(transitionStyle: style, navigationOrientation: navigationOrientation, options: options)
@@ -44,7 +44,7 @@ class OnBoardingPageViewController: UIPageViewController {
 }
 
 
-extension OnBoardingPageViewController: UIPageViewControllerDataSource {
+extension PageViewController: UIPageViewControllerDataSource {
 
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
 
@@ -71,7 +71,7 @@ extension OnBoardingPageViewController: UIPageViewControllerDataSource {
     }
 }
 
-extension OnBoardingPageViewController: UIPageViewControllerDelegate {
+extension PageViewController: UIPageViewControllerDelegate {
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         if completed {
             guard let currentViewController = pageViewController.viewControllers?.first else { return }
@@ -83,7 +83,7 @@ extension OnBoardingPageViewController: UIPageViewControllerDelegate {
     }
 }
 
-extension OnBoardingPageViewController {
+extension PageViewController {
     
     func goToNextPage(){
         
@@ -114,6 +114,6 @@ extension OnBoardingPageViewController {
     
     private func updateIndex(_ index: Int) {
         guard (index >= 0 && index < viewControllersList.count) else { return }
-        onBoardingPageViewControllerDelegate?.pageViewController(self, didScrollIndex: index)
+        pageViewControllerDelegate?.pageViewController(self, didScrollIndex: index)
     }
 }

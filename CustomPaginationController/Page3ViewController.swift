@@ -9,9 +9,9 @@
 import UIKit
 
 class Page3ViewController: UIViewController, PaginationChildProtocol {
-    var containerViewController: OnBoardingViewController
+    var containerViewController: PageContainerViewController
     
-    required init(containerViewController: OnBoardingViewController) {
+    required init(containerViewController: PageContainerViewController) {
         self.containerViewController = containerViewController
         
         super.init(nibName: nil, bundle: nil)

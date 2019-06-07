@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let window = UIWindow(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
         
-        let rootViewController = OnBoardingViewController()
+        let rootViewController = PageContainerViewController()
         window.rootViewController = rootViewController
         window.makeKeyAndVisible()
         self.window = window
